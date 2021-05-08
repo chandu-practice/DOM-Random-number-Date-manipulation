@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <style>
+        #main{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: fit-content;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container" id="main">
+        <input type="date"  id="mydate">
+        <button onclick="getdetails()" class="bg-primary">Calculate</button>
+        <h6 id ="selected_date"></h6>
+        <p id="year"></p>
+        <p id="month"></p>
+        <p id="days"></p>
+        <p id="hours"></p>
+        <p id="minutes"></p>
+        <p id="seconds"></p>
+        <p id="milliseconds"></p>
+    </div>
+
+    <script>
+        function getdetails(){
+            var x = document.getElementById('mydate').value;
+
+            //selected date converted into GMT+0530 (India Standard Time)
+            var a = new Date(x);
+
+            document.getElementById("selected_date").innerHTML = "Given input date is "+a;            
+
+            var today = new Date();
+            var month = today.getMonth()+1;
+            var year =today.getFullYear();
+            var date = today.getDate();
+            var hour = today.getHours();
+            var year_data = document.getElementById("year");
+            year_data.innerHTML = year-a.getFullYear()+" years";           
+            document.getElementById("month").innerHTML = ((year - a.getFullYear())*12)+(month-a.getMonth())-1+" Months";
+
+            //To get difference in milliseconds between selceted date and today's date 
+            var diff_in_time = today.getTime()-a.getTime();
+
+
+            document.getElementById("days").innerHTML = Math.round(diff_in_time/(1000*60*60*24))-1+" days";
+            document.getElementById("hours").innerHTML = Math.round(diff_in_time/(1000*60*60))+ " Hours";
+            document.getElementById("minutes").innerHTML = Math.round(diff_in_time/(1000*60))+ " Minutes";
+            document.getElementById("seconds").innerHTML = Math.round(diff_in_time/(1000))+" Seconds";
+            document.getElementById("milliseconds").innerHTML = Math.round(diff_in_time) + " Milliseconds";           
+        }
+    </script>
+    
+</body>
+</html>
